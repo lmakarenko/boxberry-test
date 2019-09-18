@@ -21,16 +21,16 @@ class AviaSales extends BaseModel
      * исключая из выборки заказы чартеров CRS = 1Б
      * Пример SQL-запроса формируемого через QueryBuilder:
      * SELECT
-            ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
-        FROM
-            ibe_airseg
-        JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
-        WHERE
-            ibe_order.TKTTIME >= '2019-08-29-00 00:00:00'
-            AND ibe_order.TKTTIME <= '2019-08-30-00 00:00:00'
-            AND ibe_order.CRS != '1Б'
-        GROUP BY
-            ibe_airseg.AK
+     *      ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
+     *  FROM
+     *      ibe_airseg
+     *  JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
+     *  WHERE
+     *      ibe_order.TKTTIME >= '2019-08-29-00 00:00:00'
+     *      AND ibe_order.TKTTIME <= '2019-08-30-00 00:00:00'
+     *      AND ibe_order.CRS != '1Б'
+     *  GROUP BY
+     *      ibe_airseg.AK
      * @return yii\db\Query
      */
     protected function getAviaSalesQuery(Array $params)
@@ -54,35 +54,35 @@ class AviaSales extends BaseModel
      * Заказы чартеров CRS = 1Б исключаются из выборки
      * Пример SQL-запроса формируемого через QueryBuilder:
      * SELECT
-            t1.AK,
-            t1.ORDER_COUNT ORDER_COUNT_1,
-            t2.ORDER_COUNT ORDER_COUNT_2,
-            ROUND(t2.ORDER_COUNT / t1.ORDER_COUNT, 2) - 1 SALES_GROWTH_PERCENT
-        FROM
-            (SELECT
-                ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
-            FROM
-                ibe_airseg
-            JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
-            WHERE
-                ibe_order.TKTTIME >= '2019-08-28 00:00:00'
-                AND ibe_order.TKTTIME <= '2019-08-29 00:00:00'
-                AND ibe_order.CRS != '1Б'
-            GROUP BY
-                ibe_airseg.AK) t1,
-            (SELECT
-                ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
-            FROM
-                ibe_airseg
-            JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
-            WHERE
-                ibe_order.TKTTIME >= '2019-08-29 00:00:00'
+     *      t1.AK,
+     *      t1.ORDER_COUNT ORDER_COUNT_1,
+     *      t2.ORDER_COUNT ORDER_COUNT_2,
+     *      ROUND(t2.ORDER_COUNT / t1.ORDER_COUNT, 2) - 1 SALES_GROWTH_PERCENT
+     *  FROM
+     *      (SELECT
+     *          ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
+     *      FROM
+     *          ibe_airseg
+     *      JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
+     *      WHERE
+     *          ibe_order.TKTTIME >= '2019-08-28 00:00:00'
+     *          AND ibe_order.TKTTIME <= '2019-08-29 00:00:00'
+     *          AND ibe_order.CRS != '1Б'
+     *      GROUP BY
+     *          ibe_airseg.AK) t1,
+     *      (SELECT
+     *          ibe_airseg.AK, COUNT(DISTINCT ibe_order.ORDER_ID) ORDER_COUNT
+     *      FROM
+     *          ibe_airseg
+     *      JOIN ibe_order ON ibe_order.ORDER_ID = ibe_airseg.ORDID
+     *      WHERE
+     *          ibe_order.TKTTIME >= '2019-08-29 00:00:00'
      *          AND ibe_order.TKTTIME <= '2019-08-30 00:00:00'
-                AND ibe_order.CRS != '1Б'
-            GROUP BY
-                ibe_airseg.AK) t2
-        WHERE
-            t1.AK = t2.AK
+     *          AND ibe_order.CRS != '1Б'
+     *      GROUP BY
+     *          ibe_airseg.AK) t2
+     *  WHERE
+     *      t1.AK = t2.AK
      * @return yii\db\Query
      */
     protected function getAviaSalesGrowthQuery(Array $params)
