@@ -100,7 +100,7 @@ class emailAlertComponent extends BaseComponent
      */
     protected function setParams(Array $params, MailerInterface $mailer = null)
     {
-        if(!isset($mailer) && empty($this->mailer)) {
+        if(!isset($mailer) || empty($this->mailer)) {
             $this->mailer = Yii::$app->mailer;
         }
         $this->tag = $params['tag'];
